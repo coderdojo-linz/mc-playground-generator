@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       ACR: mcplayground
-      JDK_IMAGE: ${{ env.ACR }}.azurecr.io/openjdk
+      JDK_IMAGE: mcplayground.azurecr.io/openjdk
       JDK_TAG: 17-bullseye
       CODE_SERVER_VER: 3.12.0
       REPO: mc_playground
