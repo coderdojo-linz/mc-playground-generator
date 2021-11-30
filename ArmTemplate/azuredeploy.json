@@ -1,0 +1,119 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "containerGroupName": {
+      "type": "string",
+      "metadata": {
+        "description": "Name of the container group"
+      }
+    },
+    "imageName": {
+      "type": "string",
+      "defaultValue": "mcplayground.azurecr.io/mc_playground:latest",
+      "metadata": {
+        "description": "Name of the image to deploy"
+      }
+    },
+    "mcUserName": {
+      "type": "string",
+      "metadata": {
+        "description": "Minecraft user name"
+      }
+    },
+    "numberOfCpus": {
+      "type": "int",
+      "defaultValue": 2,
+      "metadata": {
+        "description": "Number of CPUs"
+      }
+    },
+    "memory": {
+      "type": "int",
+      "defaultValue": 4,
+      "metadata": {
+        "description": "Memory (GB)"
+      }
+    },
+    "acrPullPrincipal": {
+      "type": "string",
+      "defaultValue": "mcplayground",
+      "metadata": {
+        "description": "Service principal name used for ACR access"
+      }
+    },
+    "acrPullPrincipalSecret": {
+      "type": "secureString",
+      "metadata": {
+        "description": "Secret for service principal used for ACR access"
+      }
+    }
+  },
+  "variables": {},
+  "resources": [
+    {
+      "type": "Microsoft.ContainerInstance/containerGroups",
+      "name": "[parameters('containerGroupName')]",
+      "apiVersion": "2021-03-01",
+      "location": "[resourceGroup().location]",
+      "tags": {
+        "MinecraftUser": "[parameters('mcUserName')]"
+      },
+      "properties": {
+        "containers": [
+          {
+            "name": "playground",
+            "properties": {
+              "image": "[parameters('imageName')]",
+              "ports": [
+                {
+                  "port": 8080,
+                  "protocol": "TCP"
+                },
+                {
+                  "port": 25565,
+                  "protocol": "TCP"
+                }
+              ],
+              "resources": {
+                "requests": {
+                  "cpu": "[parameters('numberOfCpus')]",
+                  "memoryInGB": "[parameters('memory')]"
+                }
+              },
+              "environmentVariables": [
+                {
+                  "name": "MC_USER",
+                  "value": "[parameters('mcUserName')]"
+                }
+              ]
+            }
+          }
+        ],
+        "osType": "Linux",
+        "restartPolicy": "Never",
+        "ipAddress": {
+          "type": "Public",
+          "dnsNameLabel": "[parameters('containerGroupName')]",
+          "ports": [
+            {
+              "protocol": "TCP",
+              "port": 8080
+            },
+            {
+              "protocol": "TCP",
+              "port": 25565
+            }
+          ]
+        },
+        "imageRegistryCredentials": [
+          {
+            "server": "mcplayground.azurecr.io",
+            "username": "[parameters('acrPullPrincipal')]",
+            "password": "[parameters('acrPullPrincipalSecret')]"
+          }
+        ]
+      }
+    }
+  ]
+}

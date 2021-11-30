@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.31911.260
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneratorFunction", "GeneratorFunction\GeneratorFunction.csproj", "{053E08D2-FB7F-4AD2-B31F-7D07BE804271}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyGenerator", "KeyGenerator\KeyGenerator.csproj", "{92C39D54-5B7C-4417-B6F1-909236ADD09B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{053E08D2-FB7F-4AD2-B31F-7D07BE804271}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{053E08D2-FB7F-4AD2-B31F-7D07BE804271}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{053E08D2-FB7F-4AD2-B31F-7D07BE804271}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{053E08D2-FB7F-4AD2-B31F-7D07BE804271}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92C39D54-5B7C-4417-B6F1-909236ADD09B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92C39D54-5B7C-4417-B6F1-909236ADD09B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92C39D54-5B7C-4417-B6F1-909236ADD09B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92C39D54-5B7C-4417-B6F1-909236ADD09B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BE8CA5DF-8FAF-467A-A205-FE1FFE6605DC}
+	EndGlobalSection
+EndGlobal

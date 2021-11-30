@@ -1,0 +1,45 @@
+@host=http://localhost:7071
+#@host=https://mc-playground-generator.azurewebsites.net
+@code=p3k...
+
+###
+# @name create
+POST {{host}}/api/Generate
+Content-Type: application/json
+
+{
+    "minecraftUser": "WitchCharlie"
+}
+
+###
+POST {{host}}/api/Generate
+Content-Type: application/json
+
+{
+    "minecraftUser": "WitchitchitchCharlie"
+}
+
+###
+# @name pin
+POST {{host}}/api/CreatePin?code={{code}}
+Content-Type: application/json
+
+{
+    "notBefore": "2021-11-30T10:12:00Z",
+    "validPeriod": "01:00:00"
+}
+
+###
+POST {{host}}/api/ParsePin?code={{code}}
+Content-Type: application/json
+
+{
+    "pin": "{{pin.response.body.$.pin}}"
+}
+
+###
+GET {{host}}/api/DeploymentStatus?name={{create.response.body.$.name}}
+
+###
+GET https://api.mojang.com/users/profiles/minecraft/WitchCharlie
+
