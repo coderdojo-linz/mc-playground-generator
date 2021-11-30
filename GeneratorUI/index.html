@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Playground Generator</title>
+    <link rel="stylesheet" href="scss/style.scss" />
+</head>
+
+<body onload="onLoad()">
+    <div class="form">
+        <h1 class="font-mc-ten">Playground erstellen</h1>
+
+        <div id="input">
+            <p>Gib einen Benutzernamen für deinen Playground ein.</p>
+
+            <p>
+                <label for="exampleFormControlInput1" class="form-label">Benutzername</label>
+                <input type="text" class="form-control" id="username" placeholder="">
+            </p>
+
+            <div class="submit">
+                <button type="button" class="btn btn-primary" id="submit-button" onclick="submit()">Playground
+                    erstellen</button>
+            </div>
+        </div>
+
+        <div id="output">
+        </div>
+
+        <div class="output">
+            <div id="spinner" class="spinner-border text-primary" role="status">
+            </div>
+
+            <div class="error-text"></div>
+            <div class="info-text"></div>
+        </div>
+    </div>
+
+    <script src="scripts/index.ts"></script>
+</body>
+
+</html>
