@@ -53,7 +53,7 @@ public class TemplateDeployer
         return JsonSerializer.Deserialize<DeployReponse>(await result.Content.ReadAsStringAsync(), jsonOptions)!;
     }
 
-    public async Task<DeployReponse> GetStatus(string deploymentName, string token)
+    public async Task<DeployReponse?> GetStatus(string deploymentName, string token)
     {
         var url = $"https://management.azure.com/subscriptions/{configuration["SubscriptionId"]}/resourcegroups/{configuration["ResourceGroup"]}/providers/Microsoft.Resources/deployments/{deploymentName}?api-version=2021-04-01";
         var httpRequestMessage = new HttpRequestMessage
@@ -67,8 +67,12 @@ public class TemplateDeployer
         };
 
         var result = await httpClient.SendAsync(httpRequestMessage);
-        result.EnsureSuccessStatusCode();
+        if (result.StatusCode == HttpStatusCode.NotFound)
+        {
+            return null;
+        }
 
+        result.EnsureSuccessStatusCode();
         return JsonSerializer.Deserialize<DeployReponse>(await result.Content.ReadAsStringAsync(), jsonOptions)!;
     }
 
