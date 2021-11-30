@@ -77,6 +77,7 @@ public class Functions
         }
 
         var token = await tokenCache.Acquire();
+
         var name = nameBuilder.GenerateRandomName();
 
         log.LogInformation($"Deploying playground {name}");
@@ -92,7 +93,13 @@ public class Functions
         var deploymentName = req.Query["name"];
         var token = await tokenCache.Acquire();
 
-        return new OkObjectResult(await deployer.GetStatus(deploymentName, token));
+        var status = await deployer.GetStatus(deploymentName, token);
+        if (status == null)
+        {
+            return new NotFoundResult();
+        }
+
+        return new OkObjectResult(status);
     }
 
     internal record GenerateParameters(
