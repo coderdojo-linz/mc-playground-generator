@@ -1,8 +1,10 @@
-@host=http://localhost:7071
-#@host=https://mc-playground-generator.azurewebsites.net
+#@host=http://localhost:7071
+@host=https://mc-playground-generator.azurewebsites.net
 @code=p3k...
 
 ###
+# Trigger Minecraft playground generator for given Minecraft user.
+# PIN contains timespan during which the generation is possible (digitally signed).
 # @name create
 POST {{host}}/api/Generate
 Content-Type: application/json
@@ -13,24 +15,19 @@ Content-Type: application/json
 }
 
 ###
-POST {{host}}/api/Generate
-Content-Type: application/json
-
-{
-    "minecraftUser": "WitchitchitchCharlie"
-}
-
-###
+# Create a PIN for the given timespan. Code has to be a valid admin code
+# (protected by Azure Functions authorization).
 # @name pin
 POST {{host}}/api/CreatePin?code={{code}}
 Content-Type: application/json
 
 {
-    "notBefore": "2021-11-30T13:00:00Z",
+    "notBefore": "2021-10-30T13:00:00Z",
     "validPeriod": "05:00:00"
 }
 
 ###
+# Validates a given PIN code and returns the PIN's timespan.
 POST {{host}}/api/ParsePin?code={{code}}
 Content-Type: application/json
 
@@ -39,8 +36,10 @@ Content-Type: application/json
 }
 
 ###
+# Check status of playground generation
 GET {{host}}/api/DeploymentStatus?name={{create.response.body.$.name}}
 
 ###
+# Sample request for checking Minecraft user name
 GET https://api.mojang.com/users/profiles/minecraft/WitchCharlie
 
