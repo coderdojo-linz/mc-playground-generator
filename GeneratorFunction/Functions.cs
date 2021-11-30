@@ -34,13 +34,34 @@ public class Functions
         using var reader = new StreamReader(req.Body);
         var requestBody = await reader.ReadToEndAsync();
         var parameters = JsonSerializer.Deserialize<GenerateParameters>(requestBody, jsonOptions);
-        if (parameters == null || parameters.MinecraftUser == null)
+        if (parameters == null || parameters.MinecraftUser == null || parameters.Pin == null)
         {
             return new BadRequestObjectResult(new ProblemDetails
             {
                 Type = "https://linz.coderdojo.net/api/errors/invalid-parameters",
                 Title = "Invalid parameters",
-                Detail = "Minecraft user missing"
+                Detail = "Minecraft user and/or PIN missing"
+            });
+        }
+
+        var pin = pinManager.ParsePin(parameters.Pin);
+        if (pin == null)
+        {
+            return new BadRequestObjectResult(new ProblemDetails
+            {
+                Type = "https://linz.coderdojo.net/api/errors/invalid-parameters",
+                Title = "Invalid parameters",
+                Detail = "Invalid PIN or invalid PIN signature"
+            });
+        }
+
+        if (DateTime.UtcNow < pin.Value.NotBefore || DateTime.UtcNow > pin.Value.NotBefore + pin.Value.ValidPeriod)
+        {
+            return new BadRequestObjectResult(new ProblemDetails
+            {
+                Type = "https://linz.coderdojo.net/api/errors/invalid-parameters",
+                Title = "Invalid parameters",
+                Detail = "Given PIN does not allow you to generate playgrounds at this time"
             });
         }
 
@@ -75,7 +96,8 @@ public class Functions
     }
 
     internal record GenerateParameters(
-        string MinecraftUser);
+        string MinecraftUser,
+        string Pin);
 
     [FunctionName("CreatePin")]
     public async Task<IActionResult> CreatePin(

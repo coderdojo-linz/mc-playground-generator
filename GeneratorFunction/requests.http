@@ -8,7 +8,8 @@ POST {{host}}/api/Generate
 Content-Type: application/json
 
 {
-    "minecraftUser": "WitchCharlie"
+    "minecraftUser": "WitchCharlie",
+    "pin": "AIg0UQG02QgACNboK..."
 }
 
 ###
@@ -25,8 +26,8 @@ POST {{host}}/api/CreatePin?code={{code}}
 Content-Type: application/json
 
 {
-    "notBefore": "2021-11-30T10:12:00Z",
-    "validPeriod": "01:00:00"
+    "notBefore": "2021-11-30T13:00:00Z",
+    "validPeriod": "05:00:00"
 }
 
 ###
