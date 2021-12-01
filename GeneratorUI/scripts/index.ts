@@ -48,7 +48,7 @@ username.onkeydown = (event: KeyboardEvent) => {
     infoDiv.innerText = 'Playground anlegen wird gestartet ...';
 
     const response = await axios.post(`${host}/api/Generate`, { minecraftUser: username.value, pin: pin });
-    infoDiv.innerText = 'Der Playground wird erstellt. Hab bitte einen Augenblick Geduld ...';
+    infoDiv.innerText = 'Der Playground wird erstellt. Hab bitte ein paar Minuten Geduld ...';
 
     setTimeout(() => check(response.data.name), 5000);
   } catch (error) {
