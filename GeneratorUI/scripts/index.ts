@@ -82,7 +82,7 @@ async function check(deploymentName: string) {
 
       const link = `http://${deploymentName}.westeurope.azurecontainer.io:8080/?folder=/app/server/scriptcraft`;
       output.innerHTML = `<p>Dein Playground wurde erfolgreich erstellt:</p><p><a href='${link}' target='_blank'>${link}</a></p><p>Minecraft-Servername: 
-      <span class="servername font-mc-five" onclick="navigator.clipboard.writeText('${deploymentName}');" title="Klicke, um den Servernamen zu kopieren.">${deploymentName}</span></p>`;
+      <span class="servername font-mc-five" onclick="navigator.clipboard.writeText('${deploymentName}.westeurope.azurecontainer.io');" title="Klicke, um den Servernamen zu kopieren.">${deploymentName}</span></p>`;
     }
   } catch (error) {
     if (error.response) {
