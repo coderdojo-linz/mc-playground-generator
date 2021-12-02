@@ -1,0 +1,30 @@
+name: build-publish-web-app
+
+on: 
+  push:
+    branches:
+      - 'master'
+    paths:
+      - 'GeneratorUI/**'
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    env:
+      AZURE_FUNCTIONAPP_NAME: mc-playground-generator
+      AZURE_FUNCTIONAPP_PACKAGE_PATH: 'GeneratorFunction'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Build And Deploy
+        id: builddeploy
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEBAPP_TOKEN }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          action: "upload"
+          app_location: "GeneratorUI"
+          output_location: "dist"
+          app_build_command: "npm run build"
