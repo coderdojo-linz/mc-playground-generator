@@ -13,4 +13,4 @@ echo "$USERINFO" | jq '{uuid: (.id[0:8]+"-"+.id[8:12]+"-"+.id[12:16]+"-"+.id[16:
 
 code-server &
 
-java -Xmx2G -cp 'paper-1.17.1-384.jar:./libs/*' -javaagent:paper-1.17.1-384.jar io.papermc.paperclip.Paperclip
+java -Xmx2G -cp 'paper-1.17.1-399.jar:./libs/*' -Dlog4j2.formatMsgNoLookups=true -javaagent:paper-1.17.1-399.jar io.papermc.paperclip.Paperclip
